@@ -1,0 +1,62 @@
+    %%%%%%%%
+    %Cette partie sert à la création de la page de garde
+    %%%%%%%%
+    
+    %%%%%%%%
+    %Hypersetup permet de définir les couleurs des liens hypertexts
+    %%%%%%%%
+    \hypersetup{
+        colorlinks=true,          % false: liens encadrés; true: liens colorés
+        linkcolor=blue,          % couleur des liens (ou bordures) internes
+        citecolor=red,          % couleur des liens (ou bordures) vers bilbio
+        filecolor=black,          % couleur des liens (ou bordures) vers fichiers
+        urlcolor=black            % couleur des liens (ou bordures) url
+    }
+    
+    %%%%%%%%
+    %Géométrie permet de modifier la mise en page 
+    %%%%%%%%
+     %\geometry{
+     %a4paper,
+     %total={170mm,257mm},
+     %left=20mm,
+     %top=20mm,
+     %}
+    
+    
+    \parindent=0em
+    \pagestyle{fancy}
+    
+    \renewcommand{\headrulewidth}{0pt}
+    
+    %%%%%%%%%
+    %Pour avoir des header droite gauche sur les pages du documents
+    %%%%%%%%%
+    \fancyhead[L]{}   %Header de gauche
+    \fancyhead[R]{MSc Project 2017-2018 CHYN}   %Header de droite
+    
+    %%%%%%%%%
+    %Pour la première page seulement
+    %%%%%%%%%
+    \fancypagestyle{firstpage}{
+     \rhead{\vspace{20 mm}\includegraphics[width = 70mm]{logo/Dauphine_new.png}} %Logo de l'uni a droite
+      \lhead{\textit{Centre d'hydrogéologie et de géothermie                     %Texte de gauche 
+    	\\ Université de Neuchâtel}}\fancyfoot{}}                                % \\ = saut de ligne
+    
+    %%%%%%%%%
+    %Titre
+    %Vspace pour mettre de l'écart entre les lignes
+    %%%%%%%%%
+    \title{\vspace{50 mm}\rule{\linewidth}{.5pt} \textit{Master en Hydrogéologie et Géothermie}\vspace{\fill}\\\rule{\linewidth}{.5pt}\\\textbf{
+    Template Projet Master}
+    \\\rule{\linewidth}{.5pt}\\ \vspace{20 mm}}
+    
+    % \small ou \Large pour modifier localement la taille du texte
+    
+    \author{ \Large{Valentin Dall'Alba}\\\small{Supervised by Prof. ---- } \\\small{and-----} \vspace{\fill}}
+    
+    
+    
+    
+    
+    

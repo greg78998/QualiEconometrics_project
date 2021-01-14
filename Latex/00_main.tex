@@ -1,0 +1,33 @@
+\documentclass{article}[11pt]
+
+\input{packages.tex}
+
+\let\oldtabular=\tabular
+\def\tabular{\tiny\oldtabular}
+
+
+
+\begin{document}
+
+\tableofcontents
+\listoftables
+\listoffigures
+
+\clearpage
+
+\pagestyle{plain}
+
+\section{La participation des femmes au marché du travail aux États-Unis.}
+
+\input{10_section1.tex}
+
+\clearpage
+
+\section{Education et emploi des hommes aux États-Unis.}
+
+\input{20_section2.tex}
+
+
+\end{document}
+
+

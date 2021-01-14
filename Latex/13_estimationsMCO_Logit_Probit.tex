@@ -1,0 +1,48 @@
+\subsection{Estimation des modèles de probabilité linéaire, du logit et du probit.}
+
+\subsubsection{Écriture des différentes modèles.}
+
+\subsubsection*{Modèle de probabilité linéaire :} 
+
+\begin{align}
+    y_i &= X \beta + \varepsilon_i \nonumber
+\end{align}
+
+\begin{align}
+    y_i &=  \beta_0 + \beta_1 \cdot nwifeinc_i + \beta_2 \cdot educ_i + \beta_3 \nonumber \cdot exper_i + \beta_4 \cdot exper_i^2 \\ 
+    & + \beta_5 \cdot age_i + \beta_6 \cdot kidslt6_i + \beta_7 \cdot kidsge6_i + \varepsilon_i \nonumber
+\end{align}
+
+\subsubsection*{Modèle Logit :} 
+
+\begin{align}
+    p_i = P(Y_i = 1) &= P(y_i^* | X_i = x_i > 0) \nonumber  \\ 
+               &=  P(X \beta + \varepsilon_i | X_i = x_i > 0 ) \nonumber  \\ 
+               &= P(\varepsilon_i | X_i = x_i > - X \beta) \nonumber && \\ 
+               &= 1 - F(- X_i \beta) \nonumber && \\
+               &= F(X_i \beta) \nonumber && \\ 
+               &=  \frac{e^{X_i \cdot \beta}}{1 + e^{X_i \cdot \beta}}  
+\end{align}
+
+Nous obtenons : 
+
+\begin{align}
+    p_i = \frac{e^{\beta_0 + \beta_1 \cdot nwifeinc_i + \beta_2 \cdot educ_i + \beta_3 \cdot exper_i + \beta_4 \cdot exper_i^2 + \beta_5 \cdot age_i + \beta_6 \cdot kidslt6_i + \beta_7 \cdot kidsge6_i}}{1 + e^{\beta_0 + \beta_1 \cdot nwifeinc_i + \beta_2 \cdot educ_i + \beta_3 \cdot exper_i + \beta_4 \cdot exper_i^2 + \beta_5 \cdot age_i + \beta_6 \cdot kidslt6_i + \beta_7 \cdot kidsge6_i}}
+\end{align}
+
+\subsubsection*{Modèle Probit :} 
+
+Dans le cadre du Probit, nous utilisons la fonction de répartition suivante : 
+
+\[ p_i = \int_{-\infty}^{\infty} \frac{1}{\sqrt{2 \pi}} e^{\frac{x^2}{2}} \,dx \]
+
+
+% \[ p_i = \int_{-\infty}^{\infty} \frac{1}{\sqrt{2 \pi}} e^{\frac{(\beta_0 + \beta_1 \cdot nwifeinc_i + \beta_2 \cdot educ_i + \beta_3 \cdot exper_i + \beta_4 \cdot exper_i^2 + \beta_5 \cdot age_i + \beta_6 \cdot kidslt6_i + \beta_7 \cdot kidsge6_i)^2}{2}} \,dx \]
+
+\subsubsection{Les estimations des trois modèles.}
+
+
+
+
+
+

@@ -1,0 +1,6 @@
+PWD /Users/gregoirehaniquaut/Dropbox/3 - ENSAE_Dakar/S1/Econometrie_qualitative/Projet/Latex/100_tab_results
+INPUT /usr/local/texlive/2019/texmf.cnf
+INPUT /usr/local/texlive/2019/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT /Users/gregoirehaniquaut/Dropbox/3 - ENSAE_Dakar/S1/Econometrie_qualitative/Projet/Latex/100_tab_results/logitOR.tex
+OUTPUT /Users/gregoirehaniquaut/Dropbox/3 - ENSAE_Dakar/S1/Econometrie_qualitative/Projet/Latex/100_tab_results/logitOR.log

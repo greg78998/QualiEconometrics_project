@@ -1,0 +1,39 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{longtable}{l*{2}{c}}
+\caption{Effets marginaux des modèles logit, probit et probabilité linéaire}\\
+\hline\hline\endfirsthead\hline\endhead\hline\endfoot\endlastfoot
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
+                    &\multicolumn{1}{c}{mfx Logit}&\multicolumn{1}{c}{mfx Probit}\\
+\hline
+=1 if in lab frce, 1975&                     &                     \\
+HouseInc-womanWage  &     -0.0213\sym{*}  &     -0.0120\sym{*}  \\
+                    &     [-2.53]         &     [-2.48]         \\
+[1em]
+years of schooling  &       0.221\sym{***}&       0.131\sym{***}\\
+                    &      [5.09]         &      [5.18]         \\
+[1em]
+Actual experience   &       0.206\sym{***}&       0.123\sym{***}\\
+                    &      [6.42]         &      [6.59]         \\
+[1em]
+ExperienceSq        &    -0.00315\sym{**} &    -0.00189\sym{**} \\
+                    &     [-3.10]         &     [-3.15]         \\
+[1em]
+woman's age in yrs  &     -0.0880\sym{***}&     -0.0529\sym{***}\\
+                    &     [-6.04]         &     [-6.23]         \\
+[1em]
+kids < 6y           &      -1.443\sym{***}&      -0.868\sym{***}\\
+                    &     [-7.09]         &     [-7.33]         \\
+[1em]
+kids 6 - 18y        &      0.0601         &      0.0360         \\
+                    &      [0.80]         &      [0.83]         \\
+[1em]
+Constant            &       0.425         &       0.270         \\
+                    &      [0.49]         &      [0.53]         \\
+\hline
+Observations        &         753         &         753         \\
+\hline\hline
+\multicolumn{3}{l}{\footnotesize \textit{t} statistics in brackets}\\
+\multicolumn{3}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{longtable}
+}

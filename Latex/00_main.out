@@ -1,0 +1,20 @@
+\BOOKMARK [1][-]{section.1}{La participation des femmes au march\351 du travail aux \311tats-Unis.}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Statistiques descriptives de la base mroz.}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Les effets attendus des variables.}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Estimation des mod\350les Logit, Probit et le mod\350le de probabilit\351 lin\351aire.}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{L'emploi du mod\350le de probabilit\351 lin\351aire.}{section.1}% 5
+\BOOKMARK [2][-]{subsection.1.5}{Les effets marginaux des variables sur la probabilit\351 de travailler.}{section.1}% 6
+\BOOKMARK [2][-]{subsection.1.6}{Probabilit\351 de travailler et exp\351rience.}{section.1}% 7
+\BOOKMARK [2][-]{subsection.1.7}{kidslt6, une variable endog\350ne ?}{section.1}% 8
+\BOOKMARK [2][-]{subsection.1.8}{Expliquer le nombre d'heures travaill\351es \(hours\).}{section.1}% 9
+\BOOKMARK [3][-]{subsubsection.1.8.1}{Le r\364le de la variable hurshrs.}{subsection.1.8}% 10
+\BOOKMARK [3][-]{subsubsection.1.8.2}{Mod\350le MCO sur les travailleurs.}{subsection.1.8}% 11
+\BOOKMARK [3][-]{subsubsection.1.8.3}{Mod\350le MCO sur la population totale \(travailleurs ou non\).}{subsection.1.8}% 12
+\BOOKMARK [3][-]{subsubsection.1.8.4}{Mod\350le de s\351lection Tobit sur l'ensemble de la population.}{subsection.1.8}% 13
+\BOOKMARK [3][-]{subsubsection.1.8.5}{Mod\350les de comptages : Poisson, Binomial n\351gatif, ZIP, ZINP.}{subsection.1.8}% 14
+\BOOKMARK [1][-]{section.2}{Education et emploi des hommes aux \311tats-Unis.}{}% 15
+\BOOKMARK [2][-]{subsection.2.1}{L'hypoth\350se : Independance of Irrelevant Alternatives \(IIA\).}{section.2}% 16
+\BOOKMARK [2][-]{subsection.2.2}{Estimation d'un Logit multinomial.}{section.2}% 17
+\BOOKMARK [2][-]{subsection.2.3}{Les rapports des risques relatifs du Logit multinomial.}{section.2}% 18
+\BOOKMARK [2][-]{subsection.2.4}{Exp\351rience et \352tre noir : l'effet sur le statut.}{section.2}% 19
+\BOOKMARK [2][-]{subsection.2.5}{Estimation par un mod\350le s\351quentiel.}{section.2}% 20

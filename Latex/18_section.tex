@@ -1,0 +1,56 @@
+
+Pour étudier le nombre d'heures travaillées, nous allons présenter des modèles de comptages suivants : 
+
+\begin{itemize}
+    \item Modèle de Poisson (\emph{poisson reg}) ;
+    \item Modèle Binomial Négatif (\emph{nb reg}) ; 
+    \item Modèle Zero Inflated Poisson (\emph{zip reg}) ; 
+    \item Modèle Zero Inflated Negative Binomial (\emph{zinb reg}).
+\end{itemize}
+
+\subsubsection*{Estimation des modèles.}
+
+Pour faciliter la comparaison entre les modèles, nous présentons ci-dessous un tableau récapitulatif présentant les différents résultats des modèles \ref{tab:countModels} 
+
+\clearpage
+
+\begin{center}
+        \small
+    \input{100_tab_results/CountModel.tex}
+    \normalsize
+    \label{tab:countModels}
+\end{center}
+
+
+\subsubsection*{Commentaires de la table de résultats.}
+
+\subsubsection*{Le meilleur modèle.}
+
+Tous les modèles sont globalement significatifs (dernière ligne du tableau \emph{p}), il est donc question de trouver quel est le modèle le plus adapté pour modéliser le nombre d'heures travaillées par les femmes en 1975. 
+
+\vspace*{0.3cm}
+
+Le modèle de Poisson indique un $R^2$ plutôt bon pour un modèle non-linéaire (supérieur à 20\%). Néanmoins, nous soulever plusieurs limites de ce modèle : 
+
+\vspace*{0.3cm}
+
+\begin{itemize}
+    \item Le modèle est construit sur une hypothèse d'\emph{équidispersion} (c'est-à-dire que si on considère que $y \backsim Poisson(\lambda)$ suit une loi de Poisson alors $E(y)=V(y)=\lambda)$ ; 
+    \item Le modèle de Poisson met en valeur beaucoup de 0 (\emph{zero excess burden}).
+\end{itemize}
+
+\vspace*{0.3cm}
+
+Pour résoudre ces deux problèmes, nous utilisons le modèle négative binomial qui permet de lever l'hypothèse d'équidispersion, la variance peut être alors différente de la moyenne. Nous pouvons réduire la sureprésentation de zéro à l'aide d'un modèle \emph{zero inflated}. Il apparait que le paramètre \emph{lnalpha} est significatif dans les deux modèles considérant une regression binomiale négative. Cela indique que l'hypothèse nulle du modèle de poisson est rejetée. Nous pouvons donc écarter les modèles de Poisson. 
+
+\vspace*{0.3cm}
+
+En comparant les critères d'information des quatre modèles, le modèle 4 (ZINB) est le meilleur modèle puisqu'il minimise les critères d'information AIC et BIC. Ce modèle (ZINP) malgré un pseudo R2 faible supposé (nous nous appuyons sur le $R^2$ de la modélisation négative binomial), permet de traiter à la fois l'\emph{équidispersion} posé par le modèle de Poisson et la problématique lié à la \emph{surpondérance de zéro} dans la prédiction. 
+
+\subsubsection*{L'interprétation des coefficients.}
+
+Pour la regression de Poisson, le coefficient associé au revenu de transfert de la femme (revenu du conjoint ainsi que les revenus du patrimoine), peut être estimé de la manière suivante : une augmentation d'une unité du revenu de transfert conduit à 0,0061\% d'heures travaillées en moins. Une année d'éducation supplémentaire, conduite à un accroissement du nombre d'heures travaillées de 0,0725\%.
+
+\vspace*{0.3cm}
+
+Si nous interprétons le modèle \emph{Zero Inflated Negativie Binomial}, seules deux variables sont significatives au seuil de 5\% : l'âge de la femme ainsi que le nombre d'enfants ayant moins de 6 ans. L'interprétation est particulière : pour les individus qui travaillent (des heures travaillées supérieures à 0), être agé d'une année supplémentaire conduit à une diminution de 0,015\% d'heures travaillées toute chose égale par ailleurs. Les femmes qui travaillent, qui ont un enfant agé de moins de 6 ans, ont 0,289\% d'heures travaillées en moins. Le reste des coefficients ne sont pas statistiquement significativement différent de 0, et ne donc pas interprétable.

@@ -1,0 +1,21 @@
+\babel@toc {french}{}
+\contentsline {section}{\numberline {1}La participation des femmes au march\IeC {\'e} du travail aux \IeC {\'E}tats-Unis.}{2}{section.1}% 
+\contentsline {subsection}{\numberline {1.1}Statistiques descriptives de la base \emph {mroz}.}{2}{subsection.1.1}% 
+\contentsline {subsection}{\numberline {1.2}Les effets attendus des variables.}{3}{subsection.1.2}% 
+\contentsline {subsection}{\numberline {1.3}Estimation des mod\IeC {\`e}les Logit, Probit et le mod\IeC {\`e}le de probabilit\IeC {\'e} lin\IeC {\'e}aire.}{5}{subsection.1.3}% 
+\contentsline {subsection}{\numberline {1.4}L'emploi du mod\IeC {\`e}le de probabilit\IeC {\'e} lin\IeC {\'e}aire.}{7}{subsection.1.4}% 
+\contentsline {subsection}{\numberline {1.5}Les effets marginaux des variables sur la probabilit\IeC {\'e} de travailler.}{8}{subsection.1.5}% 
+\contentsline {subsection}{\numberline {1.6}Probabilit\IeC {\'e} de travailler et exp\IeC {\'e}rience.}{9}{subsection.1.6}% 
+\contentsline {subsection}{\numberline {1.7}\emph {kidslt6}, une variable endog\IeC {\`e}ne ?}{10}{subsection.1.7}% 
+\contentsline {subsection}{\numberline {1.8}Expliquer le nombre d'heures travaill\IeC {\'e}es (\emph {hours}).}{10}{subsection.1.8}% 
+\contentsline {subsubsection}{\numberline {1.8.1}Le r\IeC {\^o}le de la variable \emph {hurshrs}.}{10}{subsubsection.1.8.1}% 
+\contentsline {subsubsection}{\numberline {1.8.2}Mod\IeC {\`e}le MCO sur les travailleurs.}{11}{subsubsection.1.8.2}% 
+\contentsline {subsubsection}{\numberline {1.8.3}Mod\IeC {\`e}le MCO sur la population totale (travailleurs ou non).}{11}{subsubsection.1.8.3}% 
+\contentsline {subsubsection}{\numberline {1.8.4}Mod\IeC {\`e}le de s\IeC {\'e}lection Tobit sur l'ensemble de la population.}{12}{subsubsection.1.8.4}% 
+\contentsline {subsubsection}{\numberline {1.8.5}Mod\IeC {\`e}les de comptages : Poisson, Binomial n\IeC {\'e}gatif, ZIP, ZINP.}{14}{subsubsection.1.8.5}% 
+\contentsline {section}{\numberline {2}Education et emploi des hommes aux \IeC {\'E}tats-Unis.}{17}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}L'hypoth\IeC {\`e}se : \emph {Independance of Irrelevant Alternatives} (IIA).}{17}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.2}Estimation d'un Logit multinomial.}{17}{subsection.2.2}% 
+\contentsline {subsection}{\numberline {2.3}Les rapports des risques relatifs du Logit multinomial.}{18}{subsection.2.3}% 
+\contentsline {subsection}{\numberline {2.4}Exp\IeC {\'e}rience et \IeC {\^e}tre noir : l'effet sur le statut.}{19}{subsection.2.4}% 
+\contentsline {subsection}{\numberline {2.5}Estimation par un mod\IeC {\`e}le s\IeC {\'e}quentiel.}{20}{subsection.2.5}% 

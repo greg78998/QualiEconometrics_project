@@ -1,0 +1,758 @@
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/gregoirehaniquaut/Dropbox/3 - ENSAE_Dakar/S1/Econometrie_qualitative/Projet/results/results.log
+  log type:  text
+ opened on:  10 Jan 2021, 13:06:28
+
+. 
+. 
+. 
+. 
+. 
+. ****************************** PARTIE 1 ****************************************
+. 
+. * lecture de la base
+. use "$data/mroz.dta",clear 
+
+. 
+. * changement de labels pour la présentation des esttab
+. label var nwifeinc "HouseInc-womanWage"
+
+. label var exper "Actual experience"
+
+. label var expersq "ExperienceSq"
+
+. label var kidsge6 "kids 6 - 18y"
+
+. label var kidslt6 "kids < 6y"
+
+. 
+. 
+. // Q1 - statistiques descriptives 
+. 
+. summarize inlf nwifeinc educ exper expersq age kidslt6 kidsge6
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+        inlf |        753    .5683931    .4956295          0          1
+    nwifeinc |        753    20.12896     11.6348  -.0290575         96
+        educ |        753    12.28685    2.280246          5         17
+       exper |        753    10.63081     8.06913          0         45
+     expersq |        753    178.0385    249.6308          0       2025
+-------------+---------------------------------------------------------
+         age |        753    42.53785    8.072574         30         60
+     kidslt6 |        753    .2377158     .523959          0          3
+     kidsge6 |        753    1.353254    1.319874          0          8
+
+. 
+. asdoc bysort inlf : tabstat nwifeinc educ exper expersq age kidslt6 kidsge6, stat(mean sd min max cv q) columns(statistics) format(%9.2f) 
+(File Myfile.doc already exists, option append was assumed)
+Error in the stat( mean sd min max cv q ) option!
+only the following statistics are allowed
+N sd mean semean median count sum range min max var cv skewness kurtosis iqr p1 p5 p10 p25 p50 p75 p90 p95 p99 tstat
+
+. 
+. bysort inlf : tabstat nwifeinc educ exper expersq age kidslt6 kidsge6, stat(mean sd min max cv q) columns(statistics) format(%9.2f) 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-> inlf = 0
+
+    variable |      mean        sd       min       max        cv       p25       p50       p75
+-------------+--------------------------------------------------------------------------------
+    nwifeinc |     21.70     12.73      1.50     96.00      0.59     14.00     18.97     26.04
+        educ |     11.80      2.18      5.00     17.00      0.18     11.00     12.00     12.00
+       exper |      7.46      6.92      0.00     45.00      0.93      3.00      5.00     10.00
+     expersq |    103.39    196.71      0.00   2025.00      1.90      9.00     25.00    100.00
+         age |     43.28      8.47     30.00     60.00      0.20     36.00     44.00     50.00
+     kidslt6 |      0.37      0.64      0.00      3.00      1.74      0.00      0.00      1.00
+     kidsge6 |      1.36      1.33      0.00      7.00      0.98      0.00      1.00      2.00
+----------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-> inlf = 1
+
+    variable |      mean        sd       min       max        cv       p25       p50       p75
+-------------+--------------------------------------------------------------------------------
+    nwifeinc |     18.94     10.59     -0.03     91.00      0.56     12.34     17.08     23.53
+        educ |     12.66      2.29      5.00     17.00      0.18     12.00     12.00     14.00
+       exper |     13.04      8.06      0.00     38.00      0.62      7.00     12.00     18.00
+     expersq |    234.72    270.04      0.00   1444.00      1.15     49.00    144.00    324.00
+         age |     41.97      7.72     30.00     60.00      0.18     35.00     42.00     47.50
+     kidslt6 |      0.14      0.39      0.00      2.00      2.80      0.00      0.00      0.00
+     kidsge6 |      1.35      1.32      0.00      8.00      0.97      0.00      1.00      2.00
+----------------------------------------------------------------------------------------------
+
+. 
+. tabstat nwifeinc educ exper expersq age kidslt6 kidsge6, stat(mean sd min max cv q) columns(statistics) format(%9.2f)
+
+    variable |      mean        sd       min       max        cv       p25       p50       p75
+-------------+--------------------------------------------------------------------------------
+    nwifeinc |     20.13     11.63     -0.03     96.00      0.58     13.03     17.70     24.47
+        educ |     12.29      2.28      5.00     17.00      0.19     12.00     12.00     13.00
+       exper |     10.63      8.07      0.00     45.00      0.76      4.00      9.00     15.00
+     expersq |    178.04    249.63      0.00   2025.00      1.40     16.00     81.00    225.00
+         age |     42.54      8.07     30.00     60.00      0.19     36.00     43.00     49.00
+     kidslt6 |      0.24      0.52      0.00      3.00      2.20      0.00      0.00      0.00
+     kidsge6 |      1.35      1.32      0.00      8.00      0.98      0.00      1.00      2.00
+----------------------------------------------------------------------------------------------
+
+. 
+. 
+. // Q2 - effet a priori
+. 
+. pwcorr exper age educ , print(0.05) star(0.01)
+
+             |    exper      age     educ
+-------------+---------------------------
+       exper |   1.0000 
+         age |   0.3340*  1.0000 
+        educ |           -0.1202*  1.0000 
+
+. graph box age, over(inlf)  scheme(s2manual) graphregion(color(white) fcolor(white) lcolor(white))
+
+. graph export "$graphics/boxplot.pdf", as(pdf) replace
+(file /Users/gregoirehaniquaut/Dropbox/3 - ENSAE_Dakar/S1/Econometrie_qualitative/Projet/Latex/101_graphics/boxplot.pdf written in PDF format)
+
+. 
+. 
+. //Q3 - estimer modèles Logit Probit ProbabilitéLinéaire
+. 
+. global y1list inlf
+
+. global x1list nwifeinc educ exper expersq age kidslt6 kidsge6
+
+. 
+. asdoc logit $y1list $x1list, append 
+
+Iteration 0:   log likelihood =  -514.8732  
+Iteration 1:   log likelihood = -402.38502  
+Iteration 2:   log likelihood = -401.76569  
+Iteration 3:   log likelihood = -401.76515  
+Iteration 4:   log likelihood = -401.76515  
+
+Logistic regression                             Number of obs     =        753
+                                                LR chi2(7)        =     226.22
+                                                Prob > chi2       =     0.0000
+Log likelihood = -401.76515                     Pseudo R2         =     0.2197
+
+------------------------------------------------------------------------------
+        inlf |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    nwifeinc |  -.0213452   .0084214    -2.53   0.011    -.0378509   -.0048394
+        educ |   .2211704   .0434396     5.09   0.000     .1360303    .3063105
+       exper |   .2058695   .0320569     6.42   0.000     .1430391    .2686999
+     expersq |  -.0031541   .0010161    -3.10   0.002    -.0051456   -.0011626
+         age |  -.0880244    .014573    -6.04   0.000     -.116587   -.0594618
+     kidslt6 |  -1.443354   .2035849    -7.09   0.000    -1.842373   -1.044335
+     kidsge6 |   .0601122   .0747897     0.80   0.422     -.086473    .2066974
+       _cons |   .4254524   .8603697     0.49   0.621    -1.260841    2.111746
+------------------------------------------------------------------------------
+Click to Open File:  Myfile.doc
+
+.         est store logit1
+
+. asdoc probit $y1list $x1list, append
+
+Iteration 0:   log likelihood =  -514.8732  
+Iteration 1:   log likelihood = -402.06651  
+Iteration 2:   log likelihood = -401.30273  
+Iteration 3:   log likelihood = -401.30219  
+Iteration 4:   log likelihood = -401.30219  
+
+Probit regression                               Number of obs     =        753
+                                                LR chi2(7)        =     227.14
+                                                Prob > chi2       =     0.0000
+Log likelihood = -401.30219                     Pseudo R2         =     0.2206
+
+------------------------------------------------------------------------------
+        inlf |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    nwifeinc |  -.0120237   .0048398    -2.48   0.013    -.0215096   -.0025378
+        educ |   .1309047   .0252542     5.18   0.000     .0814074     .180402
+       exper |   .1233476   .0187164     6.59   0.000     .0866641    .1600311
+     expersq |  -.0018871      .0006    -3.15   0.002     -.003063   -.0007111
+         age |  -.0528527   .0084772    -6.23   0.000    -.0694678   -.0362376
+     kidslt6 |  -.8683285   .1185223    -7.33   0.000    -1.100628    -.636029
+     kidsge6 |    .036005   .0434768     0.83   0.408     -.049208    .1212179
+       _cons |   .2700768    .508593     0.53   0.595    -.7267473    1.266901
+------------------------------------------------------------------------------
+Click to Open File:  Myfile.doc
+
+.         est store probit1
+
+. 
+. asdoc regress $y1list $x1list, replace
+
+      Source |       SS           df       MS      Number of obs   =       753
+-------------+----------------------------------   F(7, 745)       =     38.22
+       Model |  48.8080578         7  6.97257969   Prob > F        =    0.0000
+    Residual |  135.919698       745  .182442547   R-squared       =    0.2642
+-------------+----------------------------------   Adj R-squared   =    0.2573
+       Total |  184.727756       752  .245648611   Root MSE        =    .42713
+
+------------------------------------------------------------------------------
+        inlf |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    nwifeinc |  -.0034052   .0014485    -2.35   0.019    -.0062488   -.0005616
+        educ |   .0379953    .007376     5.15   0.000      .023515    .0524756
+       exper |   .0394924   .0056727     6.96   0.000     .0283561    .0506287
+     expersq |  -.0005963   .0001848    -3.23   0.001    -.0009591   -.0002335
+         age |  -.0160908   .0024847    -6.48   0.000    -.0209686    -.011213
+     kidslt6 |  -.2618105   .0335058    -7.81   0.000    -.3275875   -.1960335
+     kidsge6 |   .0130122    .013196     0.99   0.324    -.0128935    .0389179
+       _cons |   .5855192    .154178     3.80   0.000     .2828442    .8881943
+------------------------------------------------------------------------------
+(note: file Myfile.doc not found)
+Click to Open File:  Myfile.doc
+
+.         est store mco1
+
+. 
+end of do-file
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. 
+. capture drop educ_exper
+
+. generate educ_exper = c.educ*c.exper
+
+. label var educ_exper "Interaction educ exper"
+
+. 
+. global y2list hours
+
+. global x2list nwifeinc educ exper expersq age kidslt6 kidsge6 hushrs educ_exper
+
+. 
+end of do-file
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. preserve 
+
+.         keep if inlf == 1 
+(325 observations deleted)
+
+.         asdoc regress $y2list $x2list
+(File Myfile.doc already exists, option append was assumed)
+
+      Source |       SS           df       MS      Number of obs   =       428
+-------------+----------------------------------   F(9, 418)       =      7.63
+       Model |  36287107.2         9   4031900.8   Prob > F        =    0.0000
+    Residual |   221023913       418  528765.341   R-squared       =    0.1410
+-------------+----------------------------------   Adj R-squared   =    0.1225
+       Total |   257311020       427   602601.92   Root MSE        =    727.16
+
+------------------------------------------------------------------------------
+       hours |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    nwifeinc |   .4775034   3.679285     0.13   0.897    -6.754703     7.70971
+        educ |  -37.66404   30.57338    -1.23   0.219    -97.76078     22.4327
+       exper |   33.63625   27.68701     1.21   0.225    -20.78688    88.05938
+     expersq |  -.5214815   .4391081    -1.19   0.236    -1.384617    .3416537
+         age |  -19.70609   5.958245    -3.31   0.001    -31.41795   -7.994232
+     kidslt6 |  -300.7206   97.15272    -3.10   0.002    -491.6894   -109.7518
+     kidsge6 |  -74.62155   30.67726    -2.43   0.015    -134.9225   -14.32062
+      hushrs |   .0113916   .0625952     0.18   0.856    -.1116489    .1344321
+  educ_exper |   1.095189   1.912149     0.57   0.567    -2.663437    4.853814
+       _cons |   2218.694   495.1735     4.48   0.000     1245.353    3192.034
+------------------------------------------------------------------------------
+Click to Open File:  Myfile.doc
+
+.         est store MCO_Workers
+
+. restore
+
+. 
+end of do-file
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. asdoc regress $y2list $x2list
+(File Myfile.doc already exists, option append was assumed)
+
+      Source |       SS           df       MS      Number of obs   =       753
+-------------+----------------------------------   F(9, 743)       =     30.07
+       Model |   152426195         9  16936243.9   Prob > F        =    0.0000
+    Residual |   418483528       743  563234.897   R-squared       =    0.2670
+-------------+----------------------------------   Adj R-squared   =    0.2581
+       Total |   570909724       752  759188.463   Root MSE        =    750.49
+
+------------------------------------------------------------------------------
+       hours |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    nwifeinc |  -2.989219   2.578422    -1.16   0.247    -8.051079    2.072641
+        educ |   13.69242   21.08108     0.65   0.516    -27.69315    55.07799
+       exper |    49.1454   19.77715     2.48   0.013     10.31966    87.97115
+     expersq |  -.7081129   .3268541    -2.17   0.031     -1.34978   -.0664453
+         age |  -31.04463   4.389153    -7.07   0.000    -39.66125   -22.42802
+     kidslt6 |  -442.5762     58.904    -7.51   0.000    -558.2143   -326.9381
+     kidsge6 |  -32.79865   23.24927    -1.41   0.159    -78.44073    12.84344
+      hushrs |  -.0325355   .0470887    -0.69   0.490    -.1249783    .0599073
+  educ_exper |   1.388443   1.489437     0.93   0.352    -1.535563    4.312448
+       _cons |   1597.009   355.3341     4.49   0.000     899.4304    2294.587
+------------------------------------------------------------------------------
+Click to Open File:  Myfile.doc
+
+.         est store MCO_global
+
+. 
+end of do-file
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. 
+. sum hours
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+       hours |        753    740.5764    871.3142          0       4950
+
+. asdoc tobit $y2list $x2list, ll(0) append
+
+Refining starting values:
+
+Grid node 0:   log likelihood = -3960.8828
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -3960.8828  
+Iteration 1:   log likelihood = -3835.9775  
+Iteration 2:   log likelihood = -3818.3787  
+Iteration 3:   log likelihood = -3818.2237  
+Iteration 4:   log likelihood = -3818.2234  
+
+Tobit regression                                Number of obs     =        753
+                                                   Uncensored     =        428
+Limits: lower = 0                                  Left-censored  =        325
+        upper = +inf                               Right-censored =          0
+
+                                                LR chi2(9)        =     273.34
+                                                Prob > chi2       =     0.0000
+Log likelihood = -3818.2234                     Pseudo R2         =     0.0346
+
+------------------------------------------------------------------------------
+       hours |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    nwifeinc |  -8.180838   4.514959    -1.81   0.070    -17.04441     .682737
+        educ |    95.6529   37.81657     2.53   0.012     21.41301    169.8928
+       exper |   143.2739   34.42333     4.16   0.000      75.6955    210.8524
+     expersq |   -1.80386   .5389837    -3.35   0.001     -2.86197   -.7457504
+         age |  -54.96801   7.453566    -7.37   0.000    -69.60054   -40.33549
+     kidslt6 |  -902.2286     112.23    -8.04   0.000    -1122.554   -681.9034
+     kidsge6 |  -11.76976   38.81724    -0.30   0.762    -87.97411     64.4346
+      hushrs |  -.0988074   .0786309    -1.26   0.209    -.2531722    .0555574
+  educ_exper |  -1.115464   2.502782    -0.45   0.656    -6.028819     3.79789
+       _cons |   1021.865   611.6006     1.67   0.095    -178.8039    2222.533
+-------------+----------------------------------------------------------------
+ var(e.hours)|    1257561   93203.63                       1087276     1454515
+------------------------------------------------------------------------------
+Click to Open File:  Myfile.doc
+
+. 
+end of do-file
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. jb residu_tobit
+variable residu_tobit not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. preserve 
+
+.         replace hours = . if hours == 0 
+(325 real changes made, 325 to missing)
+
+.         asdoc heckman $y2list $x2list,   select($x2list) twostep append
+
+Heckman selection model -- two-step estimates   Number of obs     =        753
+(regression model with sample selection)              Selected    =        428
+                                                      Nonselected =        325
+
+                                                Wald chi2(9)      =      27.80
+                                                Prob > chi2       =     0.0010
+
+------------------------------------------------------------------------------
+       hours |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+hours        |
+    nwifeinc |   4.157694   5.064403     0.82   0.412    -5.768353    14.08374
+        educ |  -85.88883   53.38584    -1.61   0.108    -190.5231     18.7455
+       exper |  -13.50911   50.89751    -0.27   0.791    -113.2664    86.24817
+     expersq |   .0987268   .7174774     0.14   0.891    -1.307503    1.504957
+         age |  -3.586484   15.49963    -0.23   0.817    -33.96519    26.79223
+     kidslt6 |   -19.6242    265.794    -0.07   0.941    -540.5708    501.3224
+     kidsge6 |   -88.4395   35.06674    -2.52   0.012     -157.169   -19.70995
+      hushrs |   .0481279   .0742572     0.65   0.517    -.0974135    .1936693
+  educ_exper |   1.711338    2.13423     0.80   0.423    -2.471677    5.894353
+       _cons |   2667.907   654.4076     4.08   0.000     1385.291    3950.522
+-------------+----------------------------------------------------------------
+select       |
+    nwifeinc |  -.0110247    .004894    -2.25   0.024    -.0206168   -.0014326
+        educ |   .1304106    .041819     3.12   0.002      .048447    .2123743
+       exper |   .1179089   .0405974     2.90   0.004     .0383395    .1974783
+     expersq |  -.0018173   .0006021    -3.02   0.003    -.0029975   -.0006371
+         age |  -.0538523   .0085096    -6.33   0.000    -.0705308   -.0371738
+     kidslt6 |  -.8776726     .11902    -7.37   0.000    -1.110947   -.6443976
+     kidsge6 |     .04118    .043729     0.94   0.346    -.0445272    .1268873
+      hushrs |  -.0001391   .0000871    -1.60   0.110    -.0003097    .0000316
+  educ_exper |   .0002968   .0030283     0.10   0.922    -.0056385    .0062321
+       _cons |   .6156506   .6746298     0.91   0.361    -.7065995    1.937901
+-------------+----------------------------------------------------------------
+/mills       |
+      lambda |  -605.9926   524.6853    -1.15   0.248    -1634.357    422.3717
+-------------+----------------------------------------------------------------
+         rho |   -0.72959
+       sigma |   830.5941
+------------------------------------------------------------------------------
+Click to Open File:  Myfile.doc
+
+. restore 
+
+. 
+end of do-file
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. esttab mfx_logit mfx_probit using "$tableReg/MarginalEffectsLogitProbit.tex", mtitles("mfx Logit" "mfx Probit" "mfx OLS") gaps brackets title(Effets marginaux des modèles 
+> logit et probit) replace label
+estimation result mfx_logit not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. 
+. quietly logit $y1list $x1list
+
+.         margins , dydx(*)
+
+Average marginal effects                        Number of obs     =        753
+Model VCE    : OIM
+
+Expression   : Pr(inlf), predict()
+dy/dx w.r.t. : nwifeinc educ exper expersq age kidslt6 kidsge6
+
+------------------------------------------------------------------------------
+             |            Delta-method
+             |      dy/dx   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    nwifeinc |  -.0038118   .0014824    -2.57   0.010    -.0067172   -.0009064
+        educ |   .0394965   .0072947     5.41   0.000     .0251992    .0537939
+       exper |   .0367641     .00515     7.14   0.000     .0266702     .046858
+     expersq |  -.0005633   .0001774    -3.18   0.001    -.0009109   -.0002156
+         age |  -.0157194   .0023808    -6.60   0.000    -.0203856   -.0110532
+     kidslt6 |  -.2577537   .0319416    -8.07   0.000    -.3203581   -.1951492
+     kidsge6 |   .0107348    .013333     0.81   0.421    -.0153974    .0368671
+------------------------------------------------------------------------------
+
+.         est store mfx_logit
+
+. 
+. quietly probit $y1list $x1list 
+
+.         margins , dydx(*)
+
+Average marginal effects                        Number of obs     =        753
+Model VCE    : OIM
+
+Expression   : Pr(inlf), predict()
+dy/dx w.r.t. : nwifeinc educ exper expersq age kidslt6 kidsge6
+
+------------------------------------------------------------------------------
+             |            Delta-method
+             |      dy/dx   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    nwifeinc |  -.0036162   .0014414    -2.51   0.012    -.0064413   -.0007911
+        educ |   .0393703   .0072216     5.45   0.000     .0252161    .0535244
+       exper |   .0370974   .0051522     7.20   0.000     .0269993    .0471956
+     expersq |  -.0005675   .0001771    -3.20   0.001    -.0009146   -.0002204
+         age |  -.0158957   .0023587    -6.74   0.000    -.0205186   -.0112728
+     kidslt6 |  -.2611542   .0318597    -8.20   0.000    -.3235982   -.1987103
+     kidsge6 |   .0108287   .0130584     0.83   0.407    -.0147654    .0364227
+------------------------------------------------------------------------------
+
+.         est store mfx_probit
+
+.  
+. esttab mfx_logit mfx_probit using "$tableReg/MarginalEffectsLogitProbit.tex", mtitles("mfx Logit" "mfx Probit" "mfx OLS") gaps brackets title(Effets marginaux des modèles 
+> logit et probit) replace label
+(output written to ./Latex/100_tab_results/MarginalEffectsLogitProbit.tex)
+
+. 
+end of do-file
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. esttab poisson_reg nb_reg zip_model zinb_model using "$tableReg/CountModel.tex", mtitles("poisson reg" "nb reg" "zip reg" "zinb reg") pr2 aic bic scalar(p)  replace label 
+> title(Regressions : modèles de comptages variable endogène : heures travaillées.) longtable compress
+estimation result poisson_reg not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. asdoc poisson $y2list $x2list, append
+
+Iteration 0:   log likelihood = -315076.17  
+Iteration 1:   log likelihood = -315021.65  
+Iteration 2:   log likelihood = -315021.63  
+
+Poisson regression                              Number of obs     =        753
+                                                LR chi2(9)        =  225535.41
+                                                Prob > chi2       =     0.0000
+Log likelihood = -315021.63                     Pseudo R2         =     0.2636
+
+------------------------------------------------------------------------------
+       hours |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    nwifeinc |  -.0062087    .000145   -42.82   0.000    -.0064929   -.0059245
+        educ |   .0725101   .0012584    57.62   0.000     .0700436    .0749765
+       exper |   .1353336   .0010467   129.30   0.000     .1332821    .1373851
+     expersq |  -.0017572   .0000162  -108.33   0.000     -.001789   -.0017254
+         age |  -.0441625   .0002215  -199.36   0.000    -.0445967   -.0437283
+     kidslt6 |  -.8302512   .0042165  -196.91   0.000    -.8385154    -.821987
+     kidsge6 |  -.0344094   .0011749   -29.29   0.000    -.0367122   -.0321066
+      hushrs |  -.0000548   2.36e-06   -23.20   0.000    -.0000594   -.0000501
+  educ_exper |  -.0015356   .0000732   -20.99   0.000    -.0016789   -.0013922
+       _cons |   6.931038   .0199478   347.46   0.000     6.891941    6.970135
+------------------------------------------------------------------------------
+Click to Open File:  Myfile.doc
+
+.         est store poisson_reg
+
+. 
+. asdoc nbreg $y2list $x2list, append
+
+Fitting Poisson model:
+
+Iteration 0:   log likelihood = -315076.17  
+Iteration 1:   log likelihood = -315021.65  
+Iteration 2:   log likelihood = -315021.63  
+
+Fitting constant-only model:
+
+Iteration 0:   log likelihood =  -5728.902  
+Iteration 1:   log likelihood = -4352.1902  
+Iteration 2:   log likelihood = -4347.8371  
+Iteration 3:   log likelihood = -4347.8229  
+Iteration 4:   log likelihood = -4347.8229  
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -4325.8257  
+Iteration 1:   log likelihood = -4321.1484  
+Iteration 2:   log likelihood = -4320.0116  
+Iteration 3:   log likelihood = -4320.0113  
+
+Negative binomial regression                    Number of obs     =        753
+                                                LR chi2(9)        =      55.62
+Dispersion     = mean                           Prob > chi2       =     0.0000
+Log likelihood = -4320.0113                     Pseudo R2         =     0.0064
+
+------------------------------------------------------------------------------
+       hours |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    nwifeinc |  -.0093219    .009978    -0.93   0.350    -.0288783    .0102346
+        educ |    .106967   .0741045     1.44   0.149     -.038275    .2522091
+       exper |   .1755683   .0736698     2.38   0.017     .0311781    .3199586
+     expersq |   -.002301   .0011405    -2.02   0.044    -.0045363   -.0000657
+         age |  -.0538031   .0171389    -3.14   0.002    -.0873946   -.0202115
+     kidslt6 |  -1.083351   .2351096    -4.61   0.000    -1.544157   -.6225446
+     kidsge6 |   .0522177   .0932002     0.56   0.575    -.1304514    .2348867
+      hushrs |  -.0002133    .000186    -1.15   0.251    -.0005778    .0001511
+  educ_exper |  -.0024406   .0054346    -0.45   0.653    -.0130921    .0082109
+       _cons |   7.019892    1.25907     5.58   0.000      4.55216    9.487625
+-------------+----------------------------------------------------------------
+    /lnalpha |   2.002252   .0544696                      1.895494    2.109011
+-------------+----------------------------------------------------------------
+       alpha |   7.405716   .4033863                      6.655834    8.240084
+------------------------------------------------------------------------------
+LR test of alpha=0: chibar2(01) = 6.2e+05              Prob >= chibar2 = 0.000
+Click to Open File:  Myfile.doc
+
+.         est store nb_reg
+
+. 
+. asdoc zip $y2list $x2list, inflate($x2list) append
+
+Fitting constant-only model:
+
+Iteration 0:   log likelihood = -187623.96  
+Iteration 1:   log likelihood = -124408.81  
+Iteration 2:   log likelihood = -113153.03  
+Iteration 3:   log likelihood = -113147.75  
+Iteration 4:   log likelihood = -113147.75  
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -113147.75  
+Iteration 1:   log likelihood = -99034.237  
+Iteration 2:   log likelihood = -98771.498  
+Iteration 3:   log likelihood =  -98771.29  
+Iteration 4:   log likelihood =  -98771.29  
+
+Zero-inflated Poisson regression                Number of obs     =        753
+                                                Nonzero obs       =        428
+                                                Zero obs          =        325
+
+Inflation model = logit                         LR chi2(9)        =   28752.91
+Log likelihood  = -98771.29                     Prob > chi2       =     0.0000
+
+------------------------------------------------------------------------------
+       hours |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+hours        |
+    nwifeinc |   .0000726   .0001445     0.50   0.615    -.0002105    .0003558
+        educ |  -.0325121   .0012327   -26.37   0.000    -.0349281    -.030096
+       exper |   .0275705   .0010514    26.22   0.000     .0255099    .0296312
+     expersq |  -.0005483   .0000166   -32.96   0.000    -.0005809   -.0005157
+         age |  -.0152859   .0002282   -66.99   0.000    -.0157331   -.0148387
+     kidslt6 |  -.2673398   .0042489   -62.92   0.000    -.2756676    -.259012
+     kidsge6 |  -.0591085   .0012094   -48.88   0.000    -.0614788   -.0567382
+      hushrs |   9.15e-06   2.38e-06     3.84   0.000     4.48e-06    .0000138
+  educ_exper |   .0010913   .0000716    15.24   0.000      .000951    .0012317
+       _cons |   7.883603   .0196426   401.35   0.000     7.845104    7.922102
+-------------+----------------------------------------------------------------
+inflate      |
+    nwifeinc |   .0195377     .00851     2.30   0.022     .0028584    .0362169
+        educ |  -.2179708   .0722712    -3.02   0.003    -.3596198   -.0763218
+       exper |  -.1956157    .071108    -2.75   0.006    -.3349847   -.0562466
+     expersq |   .0030467    .001022     2.98   0.003     .0010436    .0050498
+         age |   .0896156    .014643     6.12   0.000     .0609157    .1183154
+     kidslt6 |   1.457735   .2041264     7.14   0.000     1.057655    1.857816
+     kidsge6 |   -.069053   .0754619    -0.92   0.360    -.2169555    .0788496
+      hushrs |   .0002254    .000148     1.52   0.128    -.0000647    .0005156
+  educ_exper |  -.0006091   .0052541    -0.12   0.908    -.0109069    .0096887
+       _cons |  -1.010246   1.157185    -0.87   0.383    -3.278286    1.257794
+------------------------------------------------------------------------------
+Click to Open File:  Myfile.doc
+
+.         est store zip_model 
+
+. 
+. asdoc zinb $y2list $x2list , inflate($x2list) append
+
+Fitting constant-only model:
+
+Iteration 0:   log likelihood =  -4102.551  
+Iteration 1:   log likelihood = -3927.7233  
+Iteration 2:   log likelihood = -3862.3442  
+Iteration 3:   log likelihood = -3861.9097  
+Iteration 4:   log likelihood = -3861.9095  
+
+Fitting full model:
+
+Iteration 0:   log likelihood = -3861.9095  
+Iteration 1:   log likelihood = -3845.6795  
+Iteration 2:   log likelihood = -3839.7409  
+Iteration 3:   log likelihood = -3839.7194  
+Iteration 4:   log likelihood = -3839.7194  
+
+Zero-inflated negative binomial regression      Number of obs     =        753
+                                                Nonzero obs       =        428
+                                                Zero obs          =        325
+
+Inflation model = logit                         LR chi2(9)        =      44.38
+Log likelihood  = -3839.719                     Prob > chi2       =     0.0000
+
+------------------------------------------------------------------------------
+       hours |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+hours        |
+    nwifeinc |  -.0002374   .0038476    -0.06   0.951    -.0077786    .0073038
+        educ |  -.0346683   .0288959    -1.20   0.230    -.0913032    .0219666
+       exper |   .0279764   .0267465     1.05   0.296    -.0244458    .0803985
+     expersq |  -.0005956   .0004157    -1.43   0.152    -.0014105    .0002192
+         age |  -.0149984   .0059187    -2.53   0.011    -.0265989    -.003398
+     kidslt6 |   -.288892   .0956637    -3.02   0.003    -.4763893   -.1013947
+     kidsge6 |  -.0589353   .0319024    -1.85   0.065    -.1214629    .0035923
+      hushrs |   2.72e-06   .0000648     0.04   0.966    -.0001242    .0001296
+  educ_exper |   .0011959   .0018409     0.65   0.516    -.0024122    .0048041
+       _cons |   7.909578   .4741687    16.68   0.000     6.980225    8.838932
+-------------+----------------------------------------------------------------
+inflate      |
+    nwifeinc |   .0195377     .00851     2.30   0.022     .0028584    .0362171
+        educ |  -.2179723   .0722717    -3.02   0.003    -.3596221   -.0763224
+       exper |   -.195616   .0711084    -2.75   0.006     -.334986   -.0562461
+     expersq |   .0030467    .001022     2.98   0.003     .0010436    .0050498
+         age |   .0896157   .0146431     6.12   0.000     .0609156    .1183157
+     kidslt6 |   1.457736   .2041276     7.14   0.000     1.057654    1.857819
+     kidsge6 |  -.0690553   .0754626    -0.92   0.360    -.2169592    .0788486
+      hushrs |   .0002254    .000148     1.52   0.128    -.0000647    .0005156
+  educ_exper |  -.0006091   .0052541    -0.12   0.908    -.0109069    .0096888
+       _cons |  -1.010245   1.157192    -0.87   0.383    -3.278299     1.25781
+-------------+----------------------------------------------------------------
+    /lnalpha |  -.6738631   .0637273   -10.57   0.000    -.7987663   -.5489598
+-------------+----------------------------------------------------------------
+       alpha |   .5097356   .0324841                      .4498837    .5775502
+------------------------------------------------------------------------------
+Click to Open File:  Myfile.doc
+
+.         est store zinb_model
+
+. 
+. esttab poisson_reg nb_reg zip_model zinb_model using "$tableReg/CountModel.tex", mtitles("poisson reg" "nb reg" "zip reg" "zinb reg") pr2 aic bic scalar(p)  replace label 
+> title(Regressions : modèles de comptages variable endogène : heures travaillées.) longtable compress
+(output written to ./Latex/100_tab_results/CountModel.tex)
+
+. 
+end of do-file
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. help esttab
+
+. 
+end of do-file
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. esttab poisson_reg nb_reg zip_model zinb_model using "$tableReg/CountModel.tex", mtitles("poisson reg" "nb reg" "zip reg" "zinb reg") pr2 aic bic scalar(p)  replace label 
+> title(Regressions : modèles de comptages variable endogène : heures travaillées.) longtable unstack
+(output written to ./Latex/100_tab_results/CountModel.tex)
+
+. 
+end of do-file
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. esttab poisson_reg nb_reg zip_model zinb_model using "$tableReg/CountModel.tex", mtitles("poisson reg" "nb reg" "zip reg" "zinb reg") pr2 aic bic scalar(p)  replace label 
+> title(Regressions : modèles de comptages variable endogène : heures travaillées.) longtable nogaps
+(output written to ./Latex/100_tab_results/CountModel.tex)
+
+. 
+end of do-file
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. esttab poisson_reg nb_reg zip_model zinb_model using "$tableReg/CountModel.tex", mtitles("poisson reg" "nb reg" "zip reg" "zinb reg") pr2 aic bic scalar(p)  replace label 
+> title(Regressions : modèles de comptages variable endogène : heures travaillées.)  nogaps
+(output written to ./Latex/100_tab_results/CountModel.tex)
+
+. 
+end of do-file
+
+. do "/var/folders/cg/yxrl99sn0xj21zb6qb0s7t940000gn/T//SD61629.000000"
+
+. esttab poisson_reg nb_reg zip_model zinb_model using "$tableReg/CountModel.tex", mtitles("poisson reg" "nb reg" "zip reg" "zinb reg") pr2 aic bic scalar(p)  replace label 
+> title(Regressions : modèles de comptages variable endogène : heures travaillées.)  nogaps longtable
+(output written to ./Latex/100_tab_results/CountModel.tex)
+
+. 
+end of do-file
+
+. exit, clear
